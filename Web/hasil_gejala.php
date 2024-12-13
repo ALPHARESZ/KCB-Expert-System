@@ -1,8 +1,8 @@
 <?php
 $disease = strtolower($_POST['disease']);
 $details = [
-    "flu" => ["symptoms" => ["Fever", "Cough"], "solution" => "Rest and drink plenty of fluids."],
-    "migraine" => ["symptoms" => ["Headache", "Fatigue"], "solution" => "Avoid stress and take prescribed medication."]
+    "flu" => ["symptoms" => ["Demam", "Batuk"], "solution" => "Istirahat dan minum banyak cairan."],
+    "migrain" => ["symptoms" => ["Sakit Kepala", "Kelelahan"], "solution" => "Hindari stres dan konsumsi obat sesuai resep."]
 ];
 
 $result = $details[$disease] ?? null;
@@ -11,22 +11,22 @@ $result = $details[$disease] ?? null;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Disease Details</title>
+    <title>Detail Penyakit</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Disease Details</h1>
-    <?php
-        '<div class="container">';
+    <div class="main-container">
+        <h1>Detail Penyakit</h1>
+        <?php
         if ($result) {
-            echo '<p>Disease: ' . ucfirst($disease) . '</p>
-            <p>Symptoms: ' . implode(", ", $result["symptoms"]) . '</p>
-            <p>Solution: ' . $result["solution"] . '</p>';
+            echo '<p><strong>Penyakit:</strong> ' . ucfirst($disease) . '</p>';
+            echo '<p><strong>Gejala:</strong> ' . implode(", ", $result["symptoms"]) . '</p>';
+            echo '<p><strong>Solusi:</strong> ' . $result["solution"] . '</p>';
         } else {
-            echo '<p>Disease not found in the database.</p>';
+            echo '<p>Penyakit tidak ditemukan dalam basis data.</p>';
         }
-        echo '<a href="index.php"><button>Back to Home</button></a>';
-        '</div>'
-    ?>
+        ?>
+        <a href="index.php"><button>Kembali</button></a>
+    </div>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Disease Symptoms</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Gejala Penyakit</title>
+    <link rel="stylesheet" href="../../KCB-Expert-System/Web/gejala.css">
 </head>
 <body>
-    <h1>Enter Disease Name</h1>
+    <h1>Masukkan Nama Penyakit</h1>
     <form action="hasil_gejala.php" method="POST">
-        <label>Disease Name:</label>
+        <label>Nama Penyakit:</label>
         <input type="text" name="disease" required>
-        <input type="submit" value="Find Symptoms">
+        <input type="submit" value="Cari Gejala">
     </form>
 </body>
 </html>
