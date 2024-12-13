@@ -1,26 +1,26 @@
 <?php
-$gejala = ["Fever", "Cough", "Headache", "Fatigue", "Nausea"];
+$gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Diagnosis Form</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Form Diagnosa</title>
+    <link rel="stylesheet" href="../../KCB-Expert-System/Web/diagnosa.css">
 </head>
 <body>
-    <h1>Input Your Information</h1>
+    <h1>Harap Isi Data Anda</h1>
     <form action="hasil_diagnosa.php" method="POST">
-        <label>Name:</label> <input type="text" name="name" required><br>
-        <label>Age:</label> <input type="number" name="age" required><br>
-        <label>Height (cm):</label> <input type="number" name="height" required><br>
-        <label>Weight (kg):</label> <input type="number" name="weight" required><br>
-        <label>Gender:</label>
+        <label>Nama:</label> <input type="text" name="name" required><br>
+        <label>Usia:</label> <input type="number" name="age" required><br>
+        <label>Tinggi Badan (cm):</label> <input type="number" name="height" required><br>
+        <label>Berat Badan (kg):</label> <input type="number" name="weight" required><br>
+        <label>Jenis Kelamin:</label>
         <select name="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="Male">Pria</option>
+            <option value="Female">Wanita</option>
         </select><br>
-        <h3>Select Symptoms</h3>
+        <h3>Pilih Gejala</h3>
         <?php
             foreach ($gejala as $g) {
                 echo "<input type='checkbox' name='symptoms[]' value='$g'> $g<br>";
@@ -28,5 +28,6 @@ $gejala = ["Fever", "Cough", "Headache", "Fatigue", "Nausea"];
             echo '<input type="submit" value="Diagnose">';
         ?>
     </form>
+    
 </body>
 </html>
