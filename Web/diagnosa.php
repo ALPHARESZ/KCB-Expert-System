@@ -6,7 +6,7 @@ $gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
 <html>
 <head>
     <title>Form Diagnosa</title>
-    <link rel="stylesheet" href="../../KCB-Expert-System/Web/diagnosa.css">
+    <link rel="stylesheet" href="diagnosa.css">
 </head>
 <body>
     <h1>Harap Isi Data Anda</h1>
@@ -28,6 +28,5 @@ $gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
             echo '<input type="submit" value="Diagnose">';
         ?>
     </form>
-    
 </body>
 </html>

@@ -1,3 +1,4 @@
 <?php
-    include 'Web/index.php';
+    header('location: Web/index.php');
+    exit();
 ?>
