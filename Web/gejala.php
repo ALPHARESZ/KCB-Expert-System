@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Gejala Penyakit</title>
-    <link rel="stylesheet" href="../../KCB-Expert-System/Web/gejala.css">
+    <link rel="stylesheet" href="gejala.css">
 </head>
 <body>
     <h1>Masukkan Nama Penyakit</h1>
