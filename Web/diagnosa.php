@@ -6,7 +6,7 @@ $gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
 <html>
 <head>
     <title>Form Diagnosa</title>
-    <link rel="stylesheet" href="diagnosa.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Harap Isi Data Anda</h1>

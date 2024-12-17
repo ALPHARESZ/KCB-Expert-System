@@ -16,7 +16,7 @@ if (in_array("Demam", $symptoms) && in_array("Batuk", $symptoms)) {
 <html>
 <head>
     <title>Hasil Diagnosis</title>
-    <link rel="stylesheet" href="hasil_diagnosa.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-container">
