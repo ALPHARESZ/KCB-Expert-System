@@ -82,7 +82,7 @@ if ($penyakit) {
         <?php else: ?>
             <p>Penyakit tidak ditemukan dalam basis data.</p>
         <?php endif; ?>
-        <a href="gejala.php"><button>Kembali</button></a>
+        <a href="index.php"><button>Kembali</button></a>
     </div>
 </body>
 </html>
