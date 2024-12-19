@@ -81,18 +81,19 @@ while ($row = pg_fetch_assoc($result)) {
                     s.id = rs.id_solusi
             WHERE 
                 rs.id_penyakit = {$row['penyakit_id']}
-            LIMIT 1
         ";
         $solution_result = pg_query($dbconn, $solution_query);
-        $solution = "Solusi tidak tersedia.";
-        if ($solution_row = pg_fetch_assoc($solution_result)) {
-            $solution = $solution_row['solusi'];
+
+        // Simpan semua solusi dalam array
+        $solutions = [];
+        while ($solution_row = pg_fetch_assoc($solution_result)) {
+            $solutions[] = $solution_row['solusi'];
         }
 
         // Tambahkan penyakit ke daftar
         $diagnosed_diseases[] = [
             'name' => $row['penyakit_nama'],
-            'solution' => $solution,
+            'solutions' => $solutions,
             'score' => $score
         ];
     }
@@ -122,16 +123,25 @@ usort($diagnosed_diseases, function($a, $b) {
             <p><strong>Diagnosis:</strong> Tidak ada penyakit yang cocok dengan gejala yang Anda pilih.</p>
             <p><strong>Solusi:</strong> Konsultasikan ke dokter untuk diagnosis yang tepat.</p>
         <?php else: ?>
-            <h2>Penyakit yang Mungkin Terdiagnosis</h2>
-            <ul>
+            <div class="diagnosis-container">
+                <h2>Penyakit yang Mungkin Terdiagnosis</h2>
                 <?php foreach ($diagnosed_diseases as $disease): ?>
-                    <li>
-                    <strong><?= htmlspecialchars($disease['name']) ?></strong> (Poin Kemungkinan: <?= number_format($disease['score'], 2) ?>%)
-                        <br>
-                        <strong>Solusi:</strong> <?= htmlspecialchars($disease['solution']) ?>
-                    </li>
+                    <div class="disease-box">
+                        <p class="disease-title">Penyakit: <?= htmlspecialchars($disease['name']) ?></p>
+                        
+                        <div class="solutions-container">
+                            <strong>Solusi:</strong>
+                            <?php foreach ($disease['solutions'] as $solution): ?>
+                                <div class="solution-box">
+                                    <?= htmlspecialchars($solution) ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <p class="score-box"><strong>Poin Kemungkinan:</strong> <?= number_format($disease['score'], 2) ?>%</p>
+                    </div>
                 <?php endforeach; ?>
-            </ul>
+            </div>
         <?php endif; ?>
         
         <a href="index.php"><button>Kembali</button></a>
