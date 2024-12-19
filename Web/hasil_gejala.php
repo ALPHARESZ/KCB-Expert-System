@@ -1,11 +1,45 @@
 <?php
-$disease = strtolower($_POST['disease']);
-$details = [
-    "flu" => ["symptoms" => ["Demam", "Batuk"], "solution" => "Istirahat dan minum banyak cairan."],
-    "migrain" => ["symptoms" => ["Sakit Kepala", "Kelelahan"], "solution" => "Hindari stres dan konsumsi obat sesuai resep."]
-];
+require '../Service/database.php'; // Pastikan koneksi database sudah tersedia
 
-$result = $details[$disease] ?? null;
+// Ambil nama penyakit dari input pengguna
+$disease = strtolower($_POST['disease']);
+
+// Query untuk mendapatkan data penyakit
+$queryPenyakit = "SELECT p.id AS penyakit_id, p.nama AS nama_penyakit
+                  FROM penyakit p
+                  WHERE LOWER(p.nama) = $1";
+
+$resultPenyakit = pg_query_params($dbconn, $queryPenyakit, [$disease]);
+$penyakit = pg_fetch_assoc($resultPenyakit);
+
+if ($penyakit) {
+    // Query gejala terkait penyakit
+    $queryGejala = "SELECT g.nama AS gejala
+                    FROM gejala g
+                    JOIN relasi_gejala rg ON g.id = rg.id_gejala
+                    WHERE rg.id_penyakit = $1";
+
+    $resultGejala = pg_query_params($dbconn, $queryGejala, [$penyakit['penyakit_id']]);
+    $gejala = [];
+    while ($row = pg_fetch_assoc($resultGejala)) {
+        $gejala[] = $row['gejala'];
+    }
+
+    // Query solusi terkait penyakit
+    $querySolusi = "SELECT s.solusi
+                    FROM solusi s
+                    JOIN relasi_solusi rs ON s.id = rs.id_solusi
+                    WHERE rs.id_penyakit = $1";
+
+    $resultSolusi = pg_query_params($dbconn, $querySolusi, [$penyakit['penyakit_id']]);
+    $solusi = [];
+    while ($row = pg_fetch_assoc($resultSolusi)) {
+        $solusi[] = $row['solusi'];
+    }
+} else {
+    $gejala = null;
+    $solusi = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,16 +51,14 @@ $result = $details[$disease] ?? null;
 <body>
     <div class="main-container">
         <h1>Detail Penyakit</h1>
-        <?php
-        if ($result) {
-            echo '<p><strong>Penyakit:</strong> ' . ucfirst($disease) . '</p>';
-            echo '<p><strong>Gejala:</strong> ' . implode(", ", $result["symptoms"]) . '</p>';
-            echo '<p><strong>Solusi:</strong> ' . $result["solution"] . '</p>';
-        } else {
-            echo '<p>Penyakit tidak ditemukan dalam basis data.</p>';
-        }
-        ?>
-        <a href="index.php"><button>Kembali</button></a>
+        <?php if ($penyakit): ?>
+            <p><strong>Penyakit:</strong> <?= ucfirst($penyakit['nama_penyakit']) ?></p>
+            <p><strong>Gejala:</strong> <?= implode(", ", $gejala) ?></p>
+            <p><strong>Solusi:</strong> <?= implode(", ", $solusi) ?></p>
+        <?php else: ?>
+            <p>Penyakit tidak ditemukan dalam basis data.</p>
+        <?php endif; ?>
+        <a href="gejala.php"><button>Kembali</button></a>
     </div>
 </body>
 </html>
