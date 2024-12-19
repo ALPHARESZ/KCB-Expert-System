@@ -1,5 +1,19 @@
 <?php
-$gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
+// Hubungkan ke database
+require_once '../Service/database.php';
+
+// Ambil data gejala dari database
+$query = "SELECT id, nama FROM gejala ORDER BY nama";
+$result = pg_query($dbconn, $query);
+
+if (!$result) {
+    die("Error fetching gejala: " . pg_last_error());
+}
+
+$gejala = [];
+while ($row = pg_fetch_assoc($result)) {
+    $gejala[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,12 +35,12 @@ $gejala = ["Demam", "Batuk", "Sakit Kepala", "Kelelahan", "Mual"];
             <option value="Female">Wanita</option>
         </select><br>
         <h3>Pilih Gejala</h3>
-        <?php
-            foreach ($gejala as $g) {
-                echo "<input type='checkbox' name='symptoms[]' value='$g'> $g<br>";
-            }
-            echo '<input type="submit" value="Diagnose">';
-        ?>
+        <div class="list-container">
+            <?php foreach ($gejala as $g): ?>
+                <input type="checkbox" name="symptoms[]" value="<?= $g['id'] ?>"> <?= htmlspecialchars($g['nama']) ?><br>
+            <?php endforeach; ?>
+        </div>
+        <input type="submit" value="Diagnose">
     </form>
 </body>
 </html>
