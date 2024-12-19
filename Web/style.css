@@ -1,8 +1,11 @@
-/* Style for the entire body */
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +15,6 @@ body {
   color: #333;
 }
 
-/* Style for the container holding heading and buttons */
 .main-container {
   background: #f5f5f58c;
   padding: 90px;
@@ -28,14 +30,12 @@ body {
   margin: auto;
 }
 
-/* Style for the main heading */
 h1 {
   font-size: 2.5em;
   margin: 20px 0;
   color: #444;
 }
 
-/* Style for buttons */
 button {
   background-color: #007BFF;
   color: white;
@@ -52,12 +52,10 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Style for links wrapping buttons */
 a {
   text-decoration: none;
 }
 
-/* Form container */
 form {
   background: #fff;
   padding: 20px;
@@ -67,15 +65,13 @@ form {
   width: 100%;
 }
 
-/* Form labels */
 label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
-  font-size: 1.5em; /* Larger label text */
+  font-size: 1.5em; 
 }
 
-/* Input fields */
 input[type="text"] {
   width: calc(100% - 10px);
   padding: 8px;
@@ -83,16 +79,15 @@ input[type="text"] {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1.5em; /* Larger input text */
+  font-size: 1.5em; 
 }
 
-/* Submit button */
 input[type="submit"] {
-  background-color: #007BFF; /* Changed to blue */
+  background-color: #007BFF; 
   color: #fff;
   border: none;
   padding: 15px 20px;
-  font-size: 1.5em; /* Larger button text */
+  font-size: 1.5em; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
