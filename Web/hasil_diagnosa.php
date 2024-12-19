@@ -1,7 +1,6 @@
 <?php
 require_once '../Service/database.php';
 
-// Hitung BMI
 $tinggi = (float) $_POST['height'] / 100;
 $berat = (float) $_POST['weight'];
 $bmi = $berat / ($tinggi * $tinggi);
@@ -11,26 +10,58 @@ if ($bmi < 18.5) $bmi_status = 'Kekurangan Berat Badan';
 elseif ($bmi <= 25) $bmi_status = 'Normal';
 else $bmi_status = 'Kelebihan Berat Badan';
 
-// Ambil gejala dari form
 $symptoms = $_POST['symptoms'] ?? [];
 if (empty($symptoms)) {
     die("Anda belum memilih gejala!");
 }
 
-// Cari penyakit yang cocok berdasarkan gejala
 $symptom_ids = implode(',', $symptoms);
 $query = "
-    SELECT p.id AS penyakit_id, p.nama AS penyakit_nama, s.solusi AS solusi
-    FROM penyakit p
-    JOIN relasi_gejala rg ON p.id = rg.id_penyakit
-    JOIN relasi_solusi rs ON p.id = rs.id_penyakit
-    JOIN solusi s ON rs.id_solusi = s.id
-    WHERE rg.id_gejala IN ($symptom_ids)
-    GROUP BY p.id, p.nama, s.solusi
+    SELECT 
+        p.id 
+        AS 
+            penyakit_id, 
+        p.nama 
+        AS 
+            penyakit_nama, 
+        s.solusi 
+        AS 
+            solusi
+    FROM 
+        penyakit p
+    JOIN 
+        relasi_gejala rg 
+        ON 
+            p.id = rg.id_penyakit
+    JOIN 
+        relasi_solusi rs 
+        ON 
+            p.id = rs.id_penyakit
+    JOIN 
+        solusi s 
+        ON 
+            rs.id_solusi = s.id
+    WHERE 
+        rg.id_gejala 
+        IN 
+            ($symptom_ids)
+    GROUP BY 
+        p.id, 
+        p.nama, 
+        s.solusi
     HAVING COUNT(rg.id_gejala) = (
-        SELECT COUNT(*) FROM relasi_gejala WHERE id_penyakit = p.id AND id_gejala IN ($symptom_ids)
+        SELECT 
+            COUNT(*) 
+        FROM 
+            relasi_gejala 
+        WHERE 
+            id_penyakit = p.id 
+            AND 
+                id_gejala 
+            IN 
+                ($symptom_ids)
     )
-    LIMIT 1
+    LIMIT 1 
 ";
 $result = pg_query($dbconn, $query);
 

@@ -1,9 +1,16 @@
 <?php
-// Hubungkan ke database
 require_once '../Service/database.php';
 
-// Ambil data gejala dari database
-$query = "SELECT id, nama FROM gejala ORDER BY nama";
+$query = "
+    SELECT 
+        id, 
+        nama 
+    FROM 
+        gejala 
+    ORDER BY 
+        nama
+";
+
 $result = pg_query($dbconn, $query);
 
 if (!$result) {
