@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once '../Service/database.php';
 
-$tinggi = (float) $_POST['height'] / 100;
-$berat = (float) $_POST['weight'];
-$bmi = $berat / ($tinggi * $tinggi);
+$weight = $_SESSION['patient_weight'];
+$height = $_SESSION['patient_weight'] / 100;
+$bmi = $weight / ($height * $height);
 
 $bmi_status = '';
 if ($bmi < 18.5) $bmi_status = 'Kekurangan Berat Badan';
@@ -83,7 +84,7 @@ if ($row = pg_fetch_assoc($result)) {
 <body>
     <div class="main-container">
         <h1>Hasil Diagnosis</h1>
-        <p><strong>Nama:</strong> <?= htmlspecialchars($_POST['name']) ?></p>
+        <p><strong>Nama:</strong> <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
         <p><strong>Diagnosis:</strong> <?= $diagnosis ?></p>
         <p><strong>Solusi:</strong> <?= $solution ?></p>
         <a href="index.php"><button>Kembali</button></a>
