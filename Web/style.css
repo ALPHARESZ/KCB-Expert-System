@@ -1,11 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +65,7 @@ label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
-  font-size: 1.5em; 
+  font-size: 1.5em;
 }
 
 input[type="text"] {
@@ -79,15 +75,15 @@ input[type="text"] {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1.5em; 
+  font-size: 1.5em;
 }
 
 input[type="submit"] {
-  background-color: #007BFF; 
+  background-color: #007BFF;
   color: #fff;
   border: none;
   padding: 15px 20px;
-  font-size: 1.5em; 
+  font-size: 1.5em;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;

@@ -56,9 +56,9 @@ if ($_SESSION['current_step'] === 2) {
     <?php else: ?>
         <div>
             <form action="hasil_diagnosa.php" method="post">
-                <p>Name : <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
-                <p>Height : <?= htmlspecialchars($_SESSION['patient_height']) ?></p>
-                <p>Weight : <?= htmlspecialchars($_SESSION['patient_weight']) ?></p> <br>
+                <p>Nama : <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
+                <p>Tinggi : <?= htmlspecialchars($_SESSION['patient_height']) ?></p>
+                <p>Berat : <?= htmlspecialchars($_SESSION['patient_weight']) ?></p> <br>
                 <h3>Pilih Gejala</h3>
                     <div class="list-container">
                         <?php foreach ($gejala as $g): ?>
