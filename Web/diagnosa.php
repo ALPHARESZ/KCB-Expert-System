@@ -2,10 +2,12 @@
 session_start();
 require_once '../Service/database.php';
 
+// default step ketika mengisi form
 if (!isset($_SESSION['current_step'])) {
     $_SESSION['current_step'] = 1;
 }
 
+// validasi pada saat mengisi identitas diri dan menyimpan data diri
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_identity'])) {
     $_SESSION['patient_name'] = trim($_POST['name']);
     $_SESSION['patient_height'] = floatval($_POST['height']);
@@ -13,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_identity'])) {
     $_SESSION['current_step'] = 2;
 }
 
+// validasi pada saat memilih gejala-gejala
 if ($_SESSION['current_step'] === 2) {
+    // query untuk mengambil daftar gejala dari database
     $query = "
         SELECT 
             id, 
@@ -30,6 +34,7 @@ if ($_SESSION['current_step'] === 2) {
         die("Error fetching gejala: " . pg_last_error());
     }
 
+    // menyimpan daftar gejala dari database yang digunakan untuk menampilkan daftar gejala
     $gejala = [];
     while ($row = pg_fetch_assoc($result)) {
         $gejala[] = $row;
@@ -55,14 +60,17 @@ if ($_SESSION['current_step'] === 2) {
         </form>
     <?php else: ?>
         <div>
-            <form action="hasil_diagnosa.php" method="post">
-                <p>Nama : <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
-                <p>Tinggi : <?= htmlspecialchars($_SESSION['patient_height']) ?></p>
-                <p>Berat : <?= htmlspecialchars($_SESSION['patient_weight']) ?></p> <br>
+            <form action="hasil_diagnosa.php" method="post" class="symptoms-list">
+                <strong><p>Nama : </strong> <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
+                <strong><p>Tinggi : </strong> <?= htmlspecialchars($_SESSION['patient_height']) ?></p>
+                <strong><p>Berat : </strong> <?= htmlspecialchars($_SESSION['patient_weight']) ?></p> <br>
                 <h3>Pilih Gejala</h3>
                     <div class="list-container">
                         <?php foreach ($gejala as $g): ?>
-                            <input type="checkbox" name="symptoms[]" value="<?= $g['id'] ?>"> <?= htmlspecialchars($g['nama']) ?><br>
+                            <div class="checbox-list">
+                                <input type="checkbox" name="symptoms[]" value="<?= $g['id'] ?>"> 
+                                <?= htmlspecialchars($g['nama']) ?><br>
+                            </div>
                         <?php endforeach; ?>
                     </div>
                     <button type="submit" name="diagnose">Diagnosa</button>

@@ -112,7 +112,7 @@ usort($diagnosed_diseases, function($a, $b) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
+    <div class="result-container">
         <h1>Hasil Diagnosis</h1>
         <p><strong>Nama:</strong> <?= htmlspecialchars($_SESSION['patient_name']) ?></p>
         <p><strong>Tinggi Badan:</strong> <?= htmlspecialchars($_SESSION['patient_height']) ?> cm</p>
