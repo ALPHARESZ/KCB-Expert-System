@@ -34,7 +34,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   max-width: 150vh;
   width: 100%;
   margin: 20px auto;
@@ -85,6 +84,14 @@ form {
   max-width: 200vh;
   width: 100%;
   margin: auto;
+}
+
+.symptoms-list p, .result-container p {
+  font-size: 1.25rem;
+}
+
+.result-container p {
+  margin: 10px auto;
 }
 
 label {
