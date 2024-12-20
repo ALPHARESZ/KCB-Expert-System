@@ -108,7 +108,7 @@ input[type="number"] {
 }
 
 input[type="submit"] {
-  background-color: #2ecc71;
+  background-color: #3498db;
   color: #fff;
   border: none;
   padding: 15px 25px;
@@ -119,7 +119,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #27ae60;
+  background-color: #1d6fa5;
   transform: translateY(-3px);
 }
 
